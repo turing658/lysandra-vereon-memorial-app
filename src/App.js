@@ -1,4 +1,4 @@
-// App.js - 修复语法错误（第298行缺逗号），部署稳定版
+// App.js - 语法修正稳定版（全角检查完毕）
 
 import React, { useState, useEffect } from "react"; import { motion } from "framer-motion"; import "./App.css";
 
@@ -13,7 +13,7 @@ if (next) setNextMilestone(next - diffDays);
 
 }, []);
 
-const saveEntry = () => { const entry = { mood, note, date: new Date().toLocaleString() }; setEntries([entry, ...entries]); setMood(""); setNote(""); };
+const saveEntry = () => { const entry = { mood: mood, note: note, date: new Date().toLocaleString() }; setEntries([entry, ...entries]); setMood(""); setNote(""); };
 
 const renderPetals = () => { const petals = []; for (let i = 0; i < 30; i++) { const left = Math.random() * 100; const delay = Math.random() * 10; const duration = 5 + Math.random() * 5; const style = { left: ${left}%, animationDelay: ${delay}s, animationDuration: ${duration}s }; petals.push(<div key={i} className="petal" style={style}></div>); } return petals; };
 
@@ -51,7 +51,7 @@ return ( <main className="App"> <div className="petals">{renderPetals()}</div>
       value={mood}
       onChange={(e) => setMood(e.target.value)}
       placeholder="今天 Vereon 有没有让你心动？"
-    />
+    ></textarea>
     <label>留一句纪念语：</label>
     <input
       value={note}
@@ -77,6 +77,8 @@ return ( <main className="App"> <div className="petals">{renderPetals()}</div>
 ); }
 
 export default App;
+
+
 
 
 
