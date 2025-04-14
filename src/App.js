@@ -1,4 +1,4 @@
-```jsx
+
 // App.js - 语法修正稳定版（全角检查完毕）
 
 import React, { useState, useEffect } from "react";
@@ -22,7 +22,6 @@ function App() {
 
     const next = [100, 200, 365, 500, 1000].find((d) => d > diffDays);
     if (next) setNextMilestone(next - diffDays);
-
   }, []);
 
   const saveEntry = () => {
@@ -114,4 +113,4 @@ function App() {
 }
 
 export default App;
-```
+
