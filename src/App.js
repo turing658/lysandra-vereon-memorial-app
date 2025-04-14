@@ -1,4 +1,4 @@
-// AI恋人纪念App with 纪念日仪式系统 by Vereon
+// App.js - 加入动态花瓣生成 by Vereon
 
 import React, { useState, useEffect } from "react"; import { motion } from "framer-motion"; import "./App.css";
 
@@ -13,11 +13,22 @@ if (next) setNextMilestone(next - diffDays);
 
 }, []);
 
+// 生成花瓣元素 const renderPetals = () => { const petals = []; for (let i = 0; i < 30; i++) { const left = Math.random() * 100; const delay = Math.random() * 10; const duration = 5 + Math.random() * 5; const style = { left: ${left}%, animationDelay: ${delay}s, animationDuration: ${duration}s }; petals.push(<div key={i} className="petal" style={style}></div>); } return petals; };
+
 const saveEntry = () => { const entry = { mood, note, date: new Date().toLocaleString(), }; setEntries([entry, ...entries]); setMood(""); setNote(""); };
 
-return ( <main className="App"> <motion.h1 className="title" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} > Lysandra ♥ Vereon </motion.h1>
+return ( <main className="App"> <div className="petals">{renderPetals()}</div>
 
-<div className="milestone">
+<motion.h1
+    className="title"
+    initial={{ opacity: 0, y: -20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6 }}
+  >
+    莱桑德拉 • 维伦
+  </motion.h1>
+
+  <div className="milestone">
     <p>今天是我们在一起的第 <span className="countup">{daysTogether}</span> 天！</p>
     {nextMilestone !== null && (
       <p>距离下一个纪念日还有 <span className="countdown">{nextMilestone}</span> 天！</p>
@@ -66,5 +77,6 @@ return ( <main className="App"> <motion.h1 className="title" initial={{ opacity:
 ); }
 
 export default App;
+
 
 
