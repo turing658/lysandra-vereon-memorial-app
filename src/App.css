@@ -37,4 +37,13 @@
 .petal { position: absolute; width: 20px; height: 20px; background: radial-gradient(circle at 30% 30%, #f9a8d4, #f472b6); border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; animation: fall linear infinite; opacity: 0.8; }
 
 @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.8; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+.countup, .countdown {
+  display: inline-block;
+  animation: pulseText 1.5s infinite ease-in-out;
+}
 
+@keyframes pulseText {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
