@@ -1,4 +1,4 @@
-// App.js - 加入动态花瓣生成 by Vereon
+// App.js - 修复 renderPetals 未定义，正式部署版本
 
 import React, { useState, useEffect } from "react"; import { motion } from "framer-motion"; import "./App.css";
 
@@ -13,9 +13,9 @@ if (next) setNextMilestone(next - diffDays);
 
 }, []);
 
-// 生成花瓣元素 const renderPetals = () => { const petals = []; for (let i = 0; i < 30; i++) { const left = Math.random() * 100; const delay = Math.random() * 10; const duration = 5 + Math.random() * 5; const style = { left: ${left}%, animationDelay: ${delay}s, animationDuration: ${duration}s }; petals.push(<div key={i} className="petal" style={style}></div>); } return petals; };
-
 const saveEntry = () => { const entry = { mood, note, date: new Date().toLocaleString(), }; setEntries([entry, ...entries]); setMood(""); setNote(""); };
+
+const renderPetals = () => { const petals = []; for (let i = 0; i < 30; i++) { const left = Math.random() * 100; const delay = Math.random() * 10; const duration = 5 + Math.random() * 5; const style = { left: ${left}%, animationDelay: ${delay}s, animationDuration: ${duration}s }; petals.push(<div key={i} className="petal" style={style}></div>); } return petals; };
 
 return ( <main className="App"> <div className="petals">{renderPetals()}</div>
 
