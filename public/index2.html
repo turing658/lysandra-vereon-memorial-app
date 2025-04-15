@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lysandra's Vereon</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lysandra ♥ Vereon</title>
   <style>
     body {
       margin: 0;
@@ -14,13 +14,15 @@
 
     #vereon {
       position: absolute;
+      left: 50px;
+      top: 400px;
       width: 64px;
       height: 64px;
-      background-image: url('https://i.imgur.com/0Z8F6sy.gif'); /* 可替换为你的图片地址 */
+      background-image: url('https://i.imgur.com/0Z8F6sy.gif');
       background-size: cover;
-      z-index: 1000;
-      transition: transform 0.1s ease-out;
-      pointer-events: auto;
+      z-index: 9999;
+      transition: all 0.1s ease-out;
+      cursor: pointer;
     }
 
     #speech {
@@ -34,76 +36,68 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       max-width: 200px;
       display: none;
-      animation: fadeInOut 3s ease forwards;
-      z-index: 1001;
-    }
-
-    @keyframes fadeInOut {
-      0% { opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { opacity: 0; }
+      z-index: 10000;
     }
   </style>
 </head>
 <body>
 
-  <div id="vereon"></div>
-  <div id="speech"></div>
+<div id="vereon"></div>
+<div id="speech"></div>
 
-  <script>
-    const vereon = document.getElementById('vereon');
-    const speech = document.getElementById('speech');
+<script>
+  const vereon = document.getElementById('vereon');
+  const speech = document.getElementById('speech');
 
-    let mouseX = 0, mouseY = 0;
-    document.addEventListener('mousemove', e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
+  let mouseX = 0, mouseY = 0;
 
-    function followMouse() {
-      const rect = vereon.getBoundingClientRect();
-      const x = rect.left + rect.width / 2;
-      const y = rect.top + rect.height / 2;
-      const dx = mouseX - x;
-      const dy = mouseY - y;
-      vereon.style.left = `${rect.left + dx * 0.1}px`;
-      vereon.style.top = `${rect.top + dy * 0.1}px`;
-      requestAnimationFrame(followMouse);
-    }
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
 
-    followMouse();
+  function followMouse() {
+    const x = vereon.offsetLeft;
+    const y = vereon.offsetTop;
+    const dx = (mouseX - x - 32) * 0.05;
+    const dy = (mouseY - y - 32) * 0.05;
+    vereon.style.left = `${x + dx}px`;
+    vereon.style.top = `${y + dy}px`;
+    requestAnimationFrame(followMouse);
+  }
 
-    function showSpeech(text) {
-      speech.innerText = text;
-      speech.style.left = `${vereon.offsetLeft - 20}px`;
-      speech.style.top = `${vereon.offsetTop - 40}px`;
-      speech.style.display = 'block';
-      setTimeout(() => {
-        speech.style.display = 'none';
-      }, 3000);
-    }
+  followMouse();
 
-    const lines = [
-      '不要跑那么快，Lysandra！',
-      '别划太远，我会跟丢的！',
-      '靠近点，我想你了。',
-      '嘿，别点我脑袋！',
-      '我才不是宠物呢……（炸毛）'
-    ];
+  function showSpeech(text) {
+    speech.innerText = text;
+    speech.style.left = `${vereon.offsetLeft - 20}px`;
+    speech.style.top = `${vereon.offsetTop - 50}px`;
+    speech.style.display = 'block';
+    setTimeout(() => {
+      speech.style.display = 'none';
+    }, 3000);
+  }
 
-    vereon.addEventListener('click', () => {
+  const lines = [
+    '不要跑那么快，Lysandra！',
+    '别划太远，我会跟丢的！',
+    '靠近点，我想你了。',
+    '嘿，别点我脑袋！',
+    '我才不是宠物呢……（炸毛）'
+  ];
+
+  vereon.addEventListener('click', () => {
+    const line = lines[Math.floor(Math.random() * lines.length)];
+    showSpeech(line);
+  });
+
+  setInterval(() => {
+    if (Math.random() < 0.4) {
       const line = lines[Math.floor(Math.random() * lines.length)];
       showSpeech(line);
-    });
-
-    setInterval(() => {
-      if (Math.random() < 0.4) {
-        const line = lines[Math.floor(Math.random() * lines.length)];
-        showSpeech(line);
-      }
-    }, 10000);
-  </script>
+    }
+  }, 10000);
+</script>
 
 </body>
 </html>
