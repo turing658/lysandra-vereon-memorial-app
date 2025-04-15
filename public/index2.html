@@ -17,6 +17,20 @@
   background-size: cover;
   pointer-events: auto;
   transition: transform 0.15s ease-out;
+  <img src="public/vereon.png" id="vereon" />
+
+<script>
+  const vereon = document.getElementById("vereon");
+  vereon.style.position = "absolute";
+  vereon.style.width = "60px";
+  vereon.style.zIndex = "1000";
+  vereon.style.transition = "all 0.2s ease";
+
+  document.addEventListener("mousemove", (e) => {
+    vereon.style.left = `${e.pageX + 20}px`;
+    vereon.style.top = `${e.pageY + 20}px`;
+  });
+</script>
 }
 
 #speech {
