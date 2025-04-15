@@ -1,0 +1,8 @@
+/* src/components/VereonFollower.css */
+#vereon {
+  position: absolute;
+  width: 60px;
+  pointer-events: none;
+  transition: all 0.15s ease-out;
+  z-index: 9999;
+}
