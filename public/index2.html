@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,57 +10,48 @@
       height: 100vh;
       background: #fce4ec;
       overflow: hidden;
-    }#vereon {
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  background-image: url('https://i.imgur.com/0Z8F6sy.gif');
-  background-size: cover;
-  pointer-events: auto;
-  transition: transform 0.15s ease-out;
-<img id="vereon" src="/vereon.png" alt="Vereon" />
-<script>
-  const vereon = document.getElementById("vereon");
-  vereon.style.position = "absolute";
-  vereon.style.width = "60px";
-  vereon.style.zIndex = "1000";
-  vereon.style.transition = "all 0.2s ease";
+    }
 
-  document.addEventListener("mousemove", (e) => {
-    vereon.style.left = `${e.pageX + 20}px`;
-    vereon.style.top = `${e.pageY + 20}px`;
-  });
-</script>
-}
+    #vereon {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      background-image: url('https://i.imgur.com/0Z8F6sy.gif'); /* 可替换为你的图片地址 */
+      background-size: cover;
+      z-index: 1000;
+      transition: transform 0.1s ease-out;
+      pointer-events: auto;
+    }
 
-#speech {
-  position: absolute;
-  bottom: 80px;
-  left: 10px;
-  padding: 6px 12px;
-  background: rgba(255,255,255,0.8);
-  border-radius: 8px;
-  font-family: 'Segoe UI';
-  font-size: 14px;
-  color: #d81b60;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  max-width: 200px;
-  display: none;
-  animation: fadeInOut 3s ease forwards;
-}
+    #speech {
+      position: absolute;
+      padding: 6px 12px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 8px;
+      font-family: 'Segoe UI';
+      font-size: 14px;
+      color: #d81b60;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 200px;
+      display: none;
+      animation: fadeInOut 3s ease forwards;
+      z-index: 1001;
+    }
 
-@keyframes fadeInOut {
-  0% { opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
+    @keyframes fadeInOut {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; }
+    }
   </style>
 </head>
 <body>
+
   <div id="vereon"></div>
-  <div id="speech"></div>  <script>
+  <div id="speech"></div>
+
+  <script>
     const vereon = document.getElementById('vereon');
     const speech = document.getElementById('speech');
 
@@ -75,9 +67,11 @@
       const y = rect.top + rect.height / 2;
       const dx = mouseX - x;
       const dy = mouseY - y;
-      vereon.style.transform = `translate(${x + dx * 0.1}px, ${y + dy * 0.1}px)`;
+      vereon.style.left = `${rect.left + dx * 0.1}px`;
+      vereon.style.top = `${rect.top + dy * 0.1}px`;
       requestAnimationFrame(followMouse);
     }
+
     followMouse();
 
     function showSpeech(text) {
@@ -103,9 +97,13 @@
       showSpeech(line);
     });
 
-    // 每 10 秒随机自动说一句话
     setInterval(() => {
-      if (Math.random() < 0.4) showSpeech(lines[Math.floor(Math.random() * lines.length)]);
+      if (Math.random() < 0.4) {
+        const line = lines[Math.floor(Math.random() * lines.length)];
+        showSpeech(line);
+      }
     }, 10000);
-  </script></body>
+  </script>
+
+</body>
 </html>
