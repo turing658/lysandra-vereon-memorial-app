@@ -48,6 +48,10 @@
   100% { transform: scale(1); opacity: 1; }
 }
 #vereon {
+  position: absolute;
+  width: 60px;
   pointer-events: none;
-  opacity: 0.9;
+  transition: all 0.15s ease-out;
+  z-index: 9999;
+}
 }
