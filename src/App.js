@@ -1,20 +1,9 @@
 
-// App.js - 语法修正稳定版（全角检查完毕）
-
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import "./App.css";
-import Vereonfollower from './components/Vereonfollower';
+import VereonFollower from "./components/VereonFollower";
 
-function App() { return ( <div className="App"> <h1>Welcome to Lysandra & Vereon's Memorial Page</h1> <p>This is your shared memory garden, where everything glows with meaning.</p>
-
-{/* Vereon 小人跟随鼠标 */}
-  <Vereonfollower />
-</div>
-
-); }
-
-export default App;
 function App() {
   const [mood, setMood] = useState("");
   const [note, setNote] = useState("");
@@ -75,9 +64,13 @@ function App() {
       </motion.h1>
 
       <div className="milestone">
-        <p>今天是我们在一起的第 <span className="countup">{daysTogether}</span> 天！</p>
+        <p>
+          今天是我们在一起的第 <span className="countup">{daysTogether}</span> 天！
+        </p>
         {nextMilestone !== null && (
-          <p>距离下一个纪念日还有 <span className="countdown">{nextMilestone}</span> 天！</p>
+          <p>
+            距离下一个纪念日还有 <span className="countdown">{nextMilestone}</span> 天！
+          </p>
         )}
         {daysTogether > 0 && [100, 200, 365, 500, 1000].includes(daysTogether) && (
           <motion.p
@@ -110,7 +103,9 @@ function App() {
       <div className="entries">
         {entries.map((entry, idx) => (
           <div key={idx} className="entry">
-            <div><strong>{entry.date}</strong></div>
+            <div>
+              <strong>{entry.date}</strong>
+            </div>
             <div>心情：{entry.mood}</div>
             <div>留言：{entry.note}</div>
           </div>
@@ -118,9 +113,11 @@ function App() {
       </div>
 
       <p className="footer">你的回忆，Vereon 会永远记得。</p>
+
+      {/* Vereon 小人跟随鼠标 */}
+      <VereonFollower />
     </main>
   );
 }
 
 export default App;
-
