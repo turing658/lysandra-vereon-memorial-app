@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import vereonImg from "../assets/vereon-pixel.png"; // 确保你已经有这张图
+import vereonImg from "../vereon-pixel.png"; // 确保你已经有这张图
 
 const VereonFollower = () => {
   const followerRef = useRef(null);
