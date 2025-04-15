@@ -36,6 +36,9 @@
       max-width: 200px;
       display: none;
       z-index: 10000;
+      pointer-events: none;
+      transform: translateX(-50%);
+      opacity: 0;
       transition: opacity 0.3s ease;
     }
   </style>
@@ -49,6 +52,11 @@
   window.addEventListener('DOMContentLoaded', () => {
     const vereon = document.getElementById('vereon');
     const speech = document.getElementById('speech');
+
+    if (!vereon || !speech) {
+      console.error("无法找到需要的DOM元素");
+      return;
+    }
 
     let mouseX = 0, mouseY = 0;
 
@@ -70,13 +78,20 @@
     followMouse();
 
     function showSpeech(text) {
-      speech.innerText = text;
+      speech.textContent = text;
       const rect = vereon.getBoundingClientRect();
-      speech.style.left = `${rect.left + window.scrollX - 20}px`;
-      speech.style.top = `${rect.top + window.scrollY - 50}px`;
+      
+      // 调整位置，确保在可视区域内
+      speech.style.left = `${rect.left + 32}px`;
+      speech.style.top = `${rect.top - 10}px`;
       speech.style.display = 'block';
-      speech.style.opacity = '1';
+      
+      // 使用setTimeout确保display属性变更已生效
+      setTimeout(() => {
+        speech.style.opacity = '1';
+      }, 10);
 
+      // 3秒后隐藏
       setTimeout(() => {
         speech.style.opacity = '0';
         setTimeout(() => {
@@ -97,6 +112,11 @@
       const line = lines[Math.floor(Math.random() * lines.length)];
       showSpeech(line);
     });
+
+    // 添加一个初始显示，确认功能正常
+    setTimeout(() => {
+      showSpeech('你好，Lysandra！');
+    }, 1000);
 
     setInterval(() => {
       if (Math.random() < 0.4) {
