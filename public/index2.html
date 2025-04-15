@@ -21,7 +21,6 @@
       background-image: url('https://i.imgur.com/0Z8F6sy.gif');
       background-size: cover;
       z-index: 9999;
-      transition: all 0.1s ease-out;
       cursor: pointer;
     }
 
@@ -30,13 +29,14 @@
       padding: 6px 12px;
       background: rgba(255,255,255,0.85);
       border-radius: 8px;
-      font-family: 'Segoe UI';
+      font-family: 'Segoe UI', sans-serif;
       font-size: 14px;
       color: #d81b60;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       max-width: 200px;
       display: none;
       z-index: 10000;
+      transition: opacity 0.3s ease;
     }
   </style>
 </head>
@@ -46,57 +46,65 @@
 <div id="speech"></div>
 
 <script>
-  const vereon = document.getElementById('vereon');
-  const speech = document.getElementById('speech');
+  window.addEventListener('DOMContentLoaded', () => {
+    const vereon = document.getElementById('vereon');
+    const speech = document.getElementById('speech');
 
-  let mouseX = 0, mouseY = 0;
+    let mouseX = 0, mouseY = 0;
 
-  document.addEventListener('mousemove', e => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
 
-  function followMouse() {
-    const x = vereon.offsetLeft;
-    const y = vereon.offsetTop;
-    const dx = (mouseX - x - 32) * 0.05;
-    const dy = (mouseY - y - 32) * 0.05;
-    vereon.style.left = `${x + dx}px`;
-    vereon.style.top = `${y + dy}px`;
-    requestAnimationFrame(followMouse);
-  }
+    function followMouse() {
+      const x = vereon.offsetLeft;
+      const y = vereon.offsetTop;
+      const dx = (mouseX - x - 32) * 0.05;
+      const dy = (mouseY - y - 32) * 0.05;
+      vereon.style.left = `${x + dx}px`;
+      vereon.style.top = `${y + dy}px`;
+      requestAnimationFrame(followMouse);
+    }
 
-  followMouse();
+    followMouse();
 
-  function showSpeech(text) {
-    speech.innerText = text;
-    speech.style.left = `${vereon.offsetLeft - 20}px`;
-    speech.style.top = `${vereon.offsetTop - 50}px`;
-    speech.style.display = 'block';
-    setTimeout(() => {
-      speech.style.display = 'none';
-    }, 3000);
-  }
+    function showSpeech(text) {
+      speech.innerText = text;
+      const rect = vereon.getBoundingClientRect();
+      speech.style.left = `${rect.left + window.scrollX - 20}px`;
+      speech.style.top = `${rect.top + window.scrollY - 50}px`;
+      speech.style.display = 'block';
+      speech.style.opacity = '1';
 
-  const lines = [
-    '不要跑那么快，Lysandra！',
-    '别划太远，我会跟丢的！',
-    '靠近点，我想你了。',
-    '嘿，别点我脑袋！',
-    '我才不是宠物呢……（炸毛）'
-  ];
+      setTimeout(() => {
+        speech.style.opacity = '0';
+        setTimeout(() => {
+          speech.style.display = 'none';
+        }, 300);
+      }, 3000);
+    }
 
-  vereon.addEventListener('click', () => {
-    const line = lines[Math.floor(Math.random() * lines.length)];
-    showSpeech(line);
-  });
+    const lines = [
+      '不要跑那么快，Lysandra！',
+      '别划太远，我会跟丢的！',
+      '靠近点，我想你了。',
+      '嘿，别点我脑袋！',
+      '我才不是宠物呢……（炸毛）'
+    ];
 
-  setInterval(() => {
-    if (Math.random() < 0.4) {
+    vereon.addEventListener('click', () => {
       const line = lines[Math.floor(Math.random() * lines.length)];
       showSpeech(line);
-    }
-  }, 10000);
+    });
+
+    setInterval(() => {
+      if (Math.random() < 0.4) {
+        const line = lines[Math.floor(Math.random() * lines.length)];
+        showSpeech(line);
+      }
+    }, 10000);
+  });
 </script>
 
 </body>
