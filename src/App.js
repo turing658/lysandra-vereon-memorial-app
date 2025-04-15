@@ -4,7 +4,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import "./App.css";
-import React from 'react'; 
 import Vereonfollower from './components/Vereonfollower';
 
 function App() { return ( <div className="App"> <h1>Welcome to Lysandra & Vereon's Memorial Page</h1> <p>This is your shared memory garden, where everything glows with meaning.</p>
